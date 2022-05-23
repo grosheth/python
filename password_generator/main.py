@@ -1,4 +1,3 @@
-from msilib.schema import ListBox
 import tkinter as tk
 import random
   
