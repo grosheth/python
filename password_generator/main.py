@@ -1,15 +1,50 @@
-import tkinter as tk
+from tkinter import *
+import string
+import tkinter as ttk
 import random
   
-tk.geometry("200x200")
+def generate_password(*args):
+    try:
+        pass_list = []
+        characters = list(string.ascii_letters)
+        numbers =  list(string.digits)
+        punct = list(string.punctuation)
+        characters.extend(punct)
+        characters.extend(numbers)
+        lgt = float(length.get())
 
-canvas = tk.Canvas(tk.top,bg = "white",height = "200")
+        for _ in range(int(lgt)):
+            pass_list.extend(characters[random.randint(0,len(characters))])
+            password = ''.join(str(e) for e in pass_list)
+        done.set(password)
+    except ValueError:
+        pass
 
-length = tk.Text(canvas)
+root = Tk()
+root.title("Password Generator")
+
+mainframe = ttk.Frame(root)
+mainframe.grid(column=0, row=0)
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
 
 
-canvas.pack()
+length = StringVar()
+length_entry = ttk.Entry(mainframe, width=7, textvariable=length)
+length_entry.grid(column=2, row=1, sticky=(W, E))
 
+done = StringVar()
+ttk.Label(mainframe, textvariable=done).grid(column=2, row=2)
 
+ttk.Button(mainframe, text="Generate password", command=generate_password).grid(column=3, row=3, sticky=W)
 
-tk.mainloop()
+ttk.Label(mainframe, text="length maximum 42").grid(column=1, row=1, sticky=W)
+ttk.Label(mainframe, text="password").grid(column=1, row=2, sticky=W)
+
+for child in mainframe.winfo_children(): 
+    child.grid_configure(padx=5, pady=5)
+
+length_entry.focus()
+root.bind("<Return>", generate_password)
+
+root.mainloop()
