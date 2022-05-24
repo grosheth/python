@@ -3,7 +3,7 @@ import string
 import tkinter as ttk
 import random
   
-def generate_password(*args):
+def generate_password():
     try:
         pass_list = []
         characters = list(string.ascii_letters)
@@ -11,12 +11,15 @@ def generate_password(*args):
         punct = list(string.punctuation)
         characters.extend(punct)
         characters.extend(numbers)
-        lgt = float(length.get())
+        lgt = int(length.get())
 
         for _ in range(int(lgt)):
             pass_list.extend(characters[random.randint(0,len(characters))])
-            password = ''.join(str(e) for e in pass_list)
+
+        password = ''.join(str(e) for e in pass_list)
         done.set(password)
+    except IndexError:
+        generate_password()
     except ValueError:
         pass
 
