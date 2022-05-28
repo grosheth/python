@@ -4,6 +4,16 @@ import tkinter as ttk
 import random
   
 def generate_password():
+    """generate_password
+
+    Args:
+        characters (list): Liste avec tout les characters
+        numbers (list): Liste des nombres
+        punct (list): Liste de ponctuation
+    
+    Returns:
+        password: Un string
+    """
     try:
         pass_list = []
         characters, numbers, punct = list(string.ascii_letters), list(string.digits), list(string.punctuation)
