@@ -39,7 +39,7 @@ ttk.Label(mainframe, textvariable=done).grid(column=2, row=2)
 
 ttk.Button(mainframe, text="Generate password", command=generate_password).grid(column=3, row=3, sticky=W)
 
-ttk.Label(mainframe, text="length maximum 42").grid(column=1, row=1, sticky=W)
+ttk.Label(mainframe, text="length").grid(column=1, row=1, sticky=W)
 ttk.Label(mainframe, text="password").grid(column=1, row=2, sticky=W)
 
 for child in mainframe.winfo_children(): 
