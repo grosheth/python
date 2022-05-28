@@ -6,9 +6,7 @@ import random
 def generate_password():
     try:
         pass_list = []
-        characters = list(string.ascii_letters)
-        numbers =  list(string.digits)
-        punct = list(string.punctuation)
+        characters, numbers, punct = list(string.ascii_letters), list(string.digits), list(string.punctuation)
         characters.extend(punct)
         characters.extend(numbers)
         lgt = int(length.get())
