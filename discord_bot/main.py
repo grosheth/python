@@ -1,10 +1,11 @@
-import discord, os
-from dotenv import load_dotenv
+import discord, os, dotenv
+from random import randint
 
-load_dotenv()
+
+dotenv.load_dotenv()
 # GETS THE CLIENT OBJECT FROM DISCORD.PY. CLIENT IS SYNONYMOUS WITH BOT.
 bot = discord.Client()
-
+TOKEN = os.getenv("TOKEN")
 # EVENT LISTENER FOR WHEN THE BOT HAS SWITCHED FROM OFFLINE TO ONLINE.
 @bot.event
 async def on_ready():
@@ -25,10 +26,24 @@ async def on_ready():
 # EVENT LISTENER FOR WHEN A NEW MESSAGE IS SENT TO A CHANNEL.
 @bot.event
 async def on_message(message):
-	# CHECKS IF THE MESSAGE THAT WAS SENT IS EQUAL TO "HELLO".
-	if message.content == "gartic":
-		# SENDS BACK A MESSAGE TO THE CHANNEL.
-		await message.channel.send("https://garticphone.com/lobby")
 
-# EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
-bot.run()
+	games = {
+		1:"https://garticphone.com/lobby",
+		2:"https://songtrivia2.io/",
+		3:"https://world-geography-games.com/en/flags_world.html",
+		4:"https://www.geoguessr.com/"
+	}
+	if message.content == "gartic":
+		await message.channel.send(games[1])
+	if message.content == "songtrivia":
+		await message.channel.send(games[2])
+	if message.content == "flags":
+		await message.channel.send(games[3])
+	if message.content == "geo":
+		await message.channel.send(games[4])
+	if message.content == "random game":
+		await message.channel.send(games[randint(1, len(games))])
+	
+
+	
+bot.run(TOKEN)
