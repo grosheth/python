@@ -12,7 +12,7 @@ def generate_password():
         punct (list): Liste de ponctuation
     
     Returns:
-        password: Un string
+        password: a stringW
     """
     try:
         pass_list = []
