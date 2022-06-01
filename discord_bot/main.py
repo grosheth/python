@@ -1,38 +1,43 @@
-import discord, os, dotenv
+import discord, os, dotenv, asyncio 
 from random import randint
-
+from discord.ext import tasks
 
 dotenv.load_dotenv()
-# GETS THE CLIENT OBJECT FROM DISCORD.PY. CLIENT IS SYNONYMOUS WITH BOT.
 bot = discord.Client()
 TOKEN = os.getenv("TOKEN")
-# EVENT LISTENER FOR WHEN THE BOT HAS SWITCHED FROM OFFLINE TO ONLINE.
+PREFIX = os.getenv("PREFIX")
+CHANNEL = os.getenv("CHANNEL")
+
+@tasks.loop(hours=48)
+async def send_message():
+	channel = discord.client.get_channel(CHANNEL)
+	channel.send("hey Filou, suce-la")
+
 @bot.event
 async def on_ready():
-	# CREATES A COUNTER TO KEEP TRACK OF HOW MANY GUILDS / SERVERS THE BOT IS CONNECTED TO.
 	guild_count = 0
-
-	# LOOPS THROUGH ALL THE GUILD / SERVERS THAT THE BOT IS ASSOCIATED WITH.
 	for guild in bot.guilds:
-		# PRINT THE SERVER'S ID AND NAME.
 		print(f"- {guild.id} (name: {guild.name})")
-
-		# INCREMENTS THE GUILD COUNTER.
 		guild_count = guild_count + 1
 
-	# PRINTS HOW MANY GUILDS / SERVERS THE BOT IS IN.
 	print("SampleDiscordBot is in " + str(guild_count) + " guilds.")
+	send_message.start()
 
-# EVENT LISTENER FOR WHEN A NEW MESSAGE IS SENT TO A CHANNEL.
 @bot.event
 async def on_message(message):
 
+	poll = message.content
 	games = {
 		1:"https://garticphone.com/lobby",
 		2:"https://songtrivia2.io/",
 		3:"https://world-geography-games.com/en/flags_world.html",
 		4:"https://www.geoguessr.com/"
 	}
+	memes = {
+		1:"https://www.pornhub.com/categories/hentai"
+	}
+
+	# games
 	if message.content == "gartic":
 		await message.channel.send(games[1])
 	if message.content == "songtrivia":
@@ -43,7 +48,13 @@ async def on_message(message):
 		await message.channel.send(games[4])
 	if message.content == "random game":
 		await message.channel.send(games[randint(1, len(games))])
-	
 
-	
+	# memes
+	if message.content == "hey bb veux tu une garette pi ecouter des hentai tranquille?":
+		await message.channel.send(memes[1])
+
+	if message.content == "!poll":
+		await message.channel.send(embed=discord.Embed(title="Hey pioussies!", description=poll, color=0xeeafe6))
+
+
 bot.run(TOKEN)
