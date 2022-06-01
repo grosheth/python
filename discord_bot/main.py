@@ -1,17 +1,19 @@
 import discord, os, dotenv, asyncio 
 from random import randint
-from discord.ext import tasks
+from discord.ext import tasks, commands
 
+
+client = commands.Bot(command_prefix='!')
 dotenv.load_dotenv()
 bot = discord.Client()
 TOKEN = os.getenv("TOKEN")
 PREFIX = os.getenv("PREFIX")
 CHANNEL = os.getenv("CHANNEL")
 
-@tasks.loop(hours=48)
-async def send_message():
-	channel = discord.client.get_channel(CHANNEL)
-	channel.send("hey Filou, suce-la")
+@tasks.loop(seconds=10.0)
+async def send_message(test):
+	if test == "test":
+		await send("hey Filou, suce-la")
 
 @bot.event
 async def on_ready():
@@ -21,7 +23,8 @@ async def on_ready():
 		guild_count = guild_count + 1
 
 	print("SampleDiscordBot is in " + str(guild_count) + " guilds.")
-	send_message.start()
+	test = "test"
+	send_message.start(test)
 
 @bot.event
 async def on_message(message):
