@@ -1,30 +1,27 @@
-import discord, os, dotenv, asyncio
+import os, dotenv, asyncio
 from random import randint
 from discord.ext import tasks, commands
 
+# initier le bot
+bot = commands.Bot(commands_prefix="!")
 
-client = commands.Bot(command_prefix='!')
 dotenv.load_dotenv()
-bot = discord.Client()
 TOKEN = os.getenv("TOKEN")
 PREFIX = os.getenv("PREFIX")
-CHANNEL = os.getenv("CHANNEL")
-
-@tasks.loop(seconds=10.0)
-async def send_message(test):
-	if test == "test":
-		await send("hey Filou, suce-la")
+TXTCHANNEL = os.getenv("TXTCHANNEL")
 
 @bot.event
 async def on_ready():
-	guild_count = 0
-	for guild in bot.guilds:
-		print(f"- {guild.id} (name: {guild.name})")
-		guild_count = guild_count + 1
+	print(f"Chu pra")
 
-	print("SampleDiscordBot is in " + str(guild_count) + " guilds.")
-	test = "test"
-	send_message.start(test)
+	@tasks.loop(seconds=10.0)
+	async def send_message():
+		bot.get_channel(TXTCHANNEL)
+		await channel.typing()
+		await channel.send("hey Filou, suce-la")
+
+	send_message.start()
+
 
 @bot.event
 async def on_message(message):
@@ -58,6 +55,7 @@ async def on_message(message):
 
 	if message.content == "!poll":
 		await message.channel.send(embed=discord.Embed(title="Hey pioussies!", description=poll, color=0xeeafe6))
+
 
 
 bot.run(TOKEN)
