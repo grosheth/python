@@ -1,4 +1,4 @@
-import discord, os, dotenv, asyncio 
+import discord, os, dotenv, asyncio
 from random import randint
 from discord.ext import tasks, commands
 
