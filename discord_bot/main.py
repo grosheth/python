@@ -1,26 +1,31 @@
-import os, dotenv, asyncio
+import os, discord, dotenv, asyncio
 from random import randint
 from discord.ext import tasks, commands
 
-# initier le bot
-bot = commands.Bot(commands_prefix="!")
-
+# Env variables
 dotenv.load_dotenv()
 TOKEN = os.getenv("TOKEN")
 PREFIX = os.getenv("PREFIX")
 TXTCHANNEL = os.getenv("TXTCHANNEL")
+VOICECHANNEL = os.getenv("VOICECHANNEL")
+
+# importer les intents
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix="!", intents=intents)
+
+@bot.event
+async def on_ready():
+    print('Logged in as {0} ({0.id})'.format(bot.user))
+
 
 @bot.event
 async def on_ready():
 	print(f"Chu pra")
 
-	@tasks.loop(seconds=10.0)
-	async def send_message():
-		bot.get_channel(TXTCHANNEL)
-		await channel.typing()
-		await channel.send("hey Filou, suce-la")
-
-	send_message.start()
+@bot.event
+async def on_member_join(member):
+	channel = bot.get_channel(TXTCHANNEL)
+	await channel.send(f"Salut {member.display_name} bo bb sucre")
 
 
 @bot.event
@@ -57,5 +62,5 @@ async def on_message(message):
 		await message.channel.send(embed=discord.Embed(title="Hey pioussies!", description=poll, color=0xeeafe6))
 
 
-
+bot.add_cog(Music(bot))
 bot.run(TOKEN)
