@@ -26,6 +26,4 @@ async def on_member_join(member):
 	await channel.send(f"Salut {member.display_name} bo bb sucre")
 
 
-
-
 bot.run(TOKEN)
