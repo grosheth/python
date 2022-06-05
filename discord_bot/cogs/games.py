@@ -1,7 +1,9 @@
 from ast import alias
 import asyncio, os, discord
+from ntpath import join
 from discord.ext import commands
 from random import randint
+
 
 class Games(commands.Cog):
     def __init__(self, bot):
@@ -58,13 +60,13 @@ class Games(commands.Cog):
             await ctx.send("Hélas, la maison l'emporte")
 
     @commands.command(brief="!russianroulette")
-    async def russianroulette(self, ctx):
+    async def rr(self, ctx):
         voice_channel = ctx.guild.voice_channels
         members = []
-        
+
         for member in voice_channel[0].members:
             members.append(member)
-            print(members)
+
 
         await ctx.send("Roulette Russe")
         await asyncio.sleep(1)
@@ -78,9 +80,9 @@ class Games(commands.Cog):
             await ctx.send(f"...")
             await asyncio.sleep(1)
             if luck == 1:
-                await ctx.send(f"Skidipopop")
-                await member[i].voice_channel.disconnect()
+                await ctx.send(f"PLAKEKEKEKEKETTTE SKIDIDIPOPOP ZOOPZOOP DIDISKIDIKETTKETT")
                 await asyncio.sleep(1)
+                await ctx.voice_client.disconnect()
                 await ctx.send(f"Fin du jeu")
                 return
             else:
