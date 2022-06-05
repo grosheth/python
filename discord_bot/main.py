@@ -27,7 +27,6 @@ async def on_message(self, message):
     if message.content == os.getenv("PREFIX"):
         await message.channel.send(embed=discord.Embed(title="Hello I am, P0u55i5l4y3r. Summon me using '!'", description="Feet adorer, womanizer, Short longsword, can do the drapeau. Arch Ennemy: Nick Gingras. Pioussi is the quest, pioussi is the Graal.", color=0xeeafe6))
     
-    
 
 
 bot.run(os.getenv("TOKEN"))

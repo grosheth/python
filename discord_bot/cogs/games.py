@@ -1,3 +1,4 @@
+import asyncio
 from discord.ext import commands
 from random import randint
 
@@ -5,9 +6,8 @@ class Games(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
-    @commands.command(brief="!games et spécifier le jeu")
-    async def games(self, ctx, arg):
+    @commands.command(brief="!gamelink et spécifier le jeu")
+    async def gamelink(self, ctx, arg):
         games = {
             1:"https://garticphone.com/lobby",
             2:"https://songtrivia2.io/",
@@ -26,7 +26,35 @@ class Games(commands.Cog):
             await ctx.send(games[4])
         if arg == "random game":
             await ctx.send(games[randint(1, len(games))])
+    
 
+    @commands.command(brief="!coinflip <pile> <face>")
+    async def coinflip(self, ctx, arg):
+        arg = arg.lower()
+        if arg != "pile" and arg != "face":
+            ctx.send("C'est Pile ou c'est face le gros")
+            return
+        
+        guesses = {
+            1:"pile",
+            2:"face"
+        }
+        guess = randint(1,2)
+        await ctx.send("...")
+        asyncio.sleep(5)
+        await ctx.send("La tension monte")
+        asyncio.sleep(5)
+        await ctx.send("...")
+        asyncio.sleep(5)
+        await ctx.send(guesses[guess])
+        if guesses[guess] == arg:
+            await ctx.send("Bravo, Pussi Conqueror")
+        else:
+            await ctx.send("Hélas, la maison l'emporte")
+
+    @commands.command(brief="!guessnumber <nombre> <nombre>")
+    async def guessnumber(self, ctx, arg):
+        return
 
 def setup(bot):
     bot.add_cog(Games(bot))
