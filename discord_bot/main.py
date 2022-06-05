@@ -2,9 +2,9 @@ import os, discord, dotenv
 from discord.ext import commands
 
 
-bot = commands.Bot(command_prefix="!")
 dotenv.load_dotenv()
-intents = discord.Intents.all() 
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix="!", intents=intents)
 
 # load files in cogs folder
 for filename in os.listdir("./cogs"):

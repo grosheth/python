@@ -1,4 +1,5 @@
-import asyncio
+from ast import alias
+import asyncio, os, discord
 from discord.ext import commands
 from random import randint
 
@@ -32,7 +33,7 @@ class Games(commands.Cog):
     async def coinflip(self, ctx, arg):
         arg = arg.lower()
         if arg != "pile" and arg != "face":
-            await ctx.send("C'est Pile ou c'est face le gros")
+            await ctx.send(f"{arg} n'est pas un choix à Pile ou face. Bravo")
             return
         
         guesses = {
@@ -56,9 +57,39 @@ class Games(commands.Cog):
             await asyncio.sleep(1)
             await ctx.send("Hélas, la maison l'emporte")
 
-    @commands.command(brief="!guessnumber <nombre> <nombre>")
-    async def guessnumber(self, ctx, arg):
+    @commands.command(brief="!russianroulette")
+    async def russianroulette(self, ctx):
+        voice_channel = ctx.guild.voice_channels
+        members = []
+        
+        for member in voice_channel[0].members:
+            members.append(member)
+            print(members)
 
+        await ctx.send("Roulette Russe")
+        await asyncio.sleep(1)
+        for i in range(len(members)):
+                
+            luck = 1
+            await ctx.send(f"{members[i]} prend le gun")
+            await asyncio.sleep(1)
+            await ctx.send(f"...")
+            await asyncio.sleep(1)
+            await ctx.send(f"...")
+            await asyncio.sleep(1)
+            if luck == 1:
+                await ctx.send(f"Skidipopop")
+                await member[i].voice_channel.disconnect()
+                await asyncio.sleep(1)
+                await ctx.send(f"Fin du jeu")
+                return
+            else:
+                await ctx.send(f"click...")
+                await asyncio.sleep(1)
+                await ctx.send(f"...")
+
+        await asyncio.sleep(1)
+        await ctx.send(f"Parsonne est mort")                
         return
 
 def setup(bot):
