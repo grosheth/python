@@ -32,7 +32,7 @@ class Games(commands.Cog):
     async def coinflip(self, ctx, arg):
         arg = arg.lower()
         if arg != "pile" and arg != "face":
-            ctx.send("C'est Pile ou c'est face le gros")
+            await ctx.send("C'est Pile ou c'est face le gros")
             return
         
         guesses = {
@@ -41,19 +41,24 @@ class Games(commands.Cog):
         }
         guess = randint(1,2)
         await ctx.send("...")
-        asyncio.sleep(5)
-        await ctx.send("La tension monte")
-        asyncio.sleep(5)
-        await ctx.send("...")
-        asyncio.sleep(5)
+        await asyncio.sleep(1)
+        await ctx.send("...La tension monte...")
+        if ctx.author.id == 388902413358071819:
+            await ctx.send("...")
+            await asyncio.sleep(1)
+            await ctx.send("...pas comme la molle a Filou...")
+        await asyncio.sleep(1)
         await ctx.send(guesses[guess])
         if guesses[guess] == arg:
+            await asyncio.sleep(1)
             await ctx.send("Bravo, Pussi Conqueror")
         else:
+            await asyncio.sleep(1)
             await ctx.send("Hélas, la maison l'emporte")
 
     @commands.command(brief="!guessnumber <nombre> <nombre>")
     async def guessnumber(self, ctx, arg):
+
         return
 
 def setup(bot):
