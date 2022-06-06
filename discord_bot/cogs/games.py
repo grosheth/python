@@ -72,7 +72,7 @@ class Games(commands.Cog):
         await asyncio.sleep(1)
         for i in range(len(members)):
                 
-            luck = 1
+            luck = randint(1,6)
             await ctx.send(f"{members[i]} prend le gun")
             await asyncio.sleep(1)
             await ctx.send(f"...")
