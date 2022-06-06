@@ -59,6 +59,16 @@ class Games(commands.Cog):
             await asyncio.sleep(1)
             await ctx.send("Hélas, la maison l'emporte")
 
+    @commands.command(brief="!join")
+    async def join(self, ctx):
+        if ctx.author.voice is None:
+            await ctx.send("Can't get voice client")
+        voice_channel = ctx.author.voice.channel
+        if ctx.voice_client is None:
+            await voice_channel.connect()
+        else:
+            await ctx.voice.channel.move_to(voice_channel)
+
     @commands.command(brief="!russianroulette")
     async def rr(self, ctx):
         voice_channel = ctx.guild.voice_channels

@@ -3,8 +3,8 @@ from discord.ext import commands
 
 
 dotenv.load_dotenv()
-intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="!", intents=intents)
+
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 # load files in cogs folder
 for filename in os.listdir("./cogs"):
