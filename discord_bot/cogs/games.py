@@ -59,15 +59,6 @@ class Games(commands.Cog):
             await asyncio.sleep(1)
             await ctx.send("Hélas, la maison l'emporte")
 
-    @commands.command(brief="!join")
-    async def join(self, ctx):
-        if ctx.author.voice is None:
-            await ctx.send("Can't get voice client")
-        voice_channel = ctx.author.voice.channel
-        if ctx.voice_client is None:
-            await voice_channel.connect()
-        else:
-            await ctx.voice.channel.move_to(voice_channel)
 
     @commands.command(brief="!russianroulette")
     async def rr(self, ctx):
@@ -77,13 +68,20 @@ class Games(commands.Cog):
         for member in voice_channel[0].members:
             members.append(member)
 
+        if ctx.author.voice is None:
+            await ctx.send("T po dans l'channel, Tu decide po.")
+        voice_channel = ctx.author.voice.channel
+        if ctx.voice_client is None:
+            await voice_channel.connect()
+        else:
+            await ctx.voice_client.move_to(voice_channel)
 
         await ctx.send("Roulette Russe")
         await asyncio.sleep(1)
         for i in range(len(members)):
                 
-            luck = randint(1,6)
-            await ctx.send(f"{members[i]} prend le gun")
+            luck = 1 #randint(1,6)
+            await ctx.send(f"{members[i]} prend le pioupiou")
             await asyncio.sleep(1)
             await ctx.send(f"...")
             await asyncio.sleep(1)
@@ -92,6 +90,7 @@ class Games(commands.Cog):
             if luck == 1:
                 await ctx.send(f"PLAKEKEKEKEKETTTE SKIDIDIPOPOP ZOOPZOOP DIDISKIDIKETTKETT")
                 await asyncio.sleep(1)
+                await ctx.voice_client.guild.change_voice_state()
                 await ctx.voice_client.disconnect()
                 await ctx.send(f"Fin du jeu")
                 return
